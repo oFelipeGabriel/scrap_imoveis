@@ -1,4 +1,4 @@
-## Projeto para raspagem de dados dos sites:
+## Projeto para raspagem de dados públicos dos sites:
 
 * [https://www.grupokaza.com.br/](https://www.grupokaza.com.br/)
 * [https://www.imobiliariamaciel.com.br/](https://www.imobiliariamaciel.com.br/)
