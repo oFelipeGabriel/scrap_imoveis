@@ -1,0 +1,5 @@
+ 
+# virtualenv -m python3 env_scrap_imoveis
+
+requests
+beautifulsoup4
