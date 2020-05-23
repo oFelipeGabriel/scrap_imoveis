@@ -1,21 +1,39 @@
-from bs4 import BeautifulSoup
+from urllib.parse import urlencode
 import requests
 import json
 import time
 import random
 
+from bs4 import BeautifulSoup
+
+query_string = {
+    "action":"pesquisar",
+    "contrato":"locacao",
+    "tipo":"todos",
+    "cidade":"sao-jose-dos-campos",
+    "regiao":"todos",
+    "regiao_layout":"combo",
+    "bairro_layout":"combo",
+    "valor_de":0,
+    "valor_ate":0,
+    "pagina":2
+}
+
+base_url = 'https://www.imobiliariamaciel.com.br'
+url = base_url+'''/resultado-de-busca/?q='''+urlencode(query_string)
+page = 1
+query_string['pagina'] = None
+header_url = base_url+'''/resultado-de-busca/?q='''+urlencode(query_string)
 HEADERS = {
     'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36 OPR/68.0.3618.63',
-    'referer': 'https://www.imobiliariamaciel.com.br/resultado-de-busca/?q=%%7B%22action%22%3A%22pesquisar%22%2C%22contrato%22%3A%22locacao%22%2C%22tipo%22%3A%22todos%22%2C%22cidade%22%3A%22sao-jose-dos-campos%22%2C%22regiao%22%3A%22todos%22%2C%22regiao_layout%22%3A%22combo%22%2C%22bairro_layout%22%3A%22combo%22%2C%22valor_de%22%3A0%2C%22valor_ate%22%3A0%2C%22pagina%22%3A1%7D',
+    'path': url,
+    'referer': header_url,
     'sec-fetch-dest': 'document',
     'sec-fetch-mode': 'navigate',
     'sec-fetch-site': 'same-origin',
     'sec-fetch-user': '?1',
     'upgrade-insecure-requests': '1'
 }
-base_url = 'https://www.imobiliariamaciel.com.br'
-url = base_url+'''/resultado-de-busca/?q=%%7B%%22action%%22%%3A%%22pesquisar%%22%%2C%%22contrato%%22%%3A%%22locacao%%22%%2C%%22tipo%%22%%3A%%22todos%%22%%2C%%22cidade%%22%%3A%%22sao-jose-dos-campos%%22%%2C%%22regiao%%22%%3A%%22todos%%22%%2C%%22regiao_layout%%22%%3A%%22combo%%22%%2C%%22bairro_layout%%22%%3A%%22combo%%22%%2C%%22valor_de%%22%%3A0%%2C%%22valor_ate%%22%%3A0%%2C%%22pagina%%22%%3A1%%7D'''
-page = 1
 site = requests.get(url, headers=HEADERS)
 soup = BeautifulSoup(site.content, features="html.parser")
 
